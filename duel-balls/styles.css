@@ -1,0 +1,28 @@
+.box {
+    border: 1px solid black;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.black-cell, .white-cell {
+    width: 10px;
+    height: 10px;
+}
+
+.ball-1, .ball-2 {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: top 50ms, left 50ms;
+}
+
+.ball-1, .white-cell {
+    background-color: white; 
+}
+
+.ball-2, .black-cell {
+    background-color: black;
+}
