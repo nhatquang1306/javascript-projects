@@ -1,1 +1,1 @@
-# javascript-projects
+Small projects I did in JavaScript.
