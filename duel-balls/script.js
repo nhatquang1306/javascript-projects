@@ -1,5 +1,4 @@
 const size = 20;
-let black, white;
 let ball1Dir, ball2Dir;
 fillBoard(size);
 randomizeBallLocations(size);
