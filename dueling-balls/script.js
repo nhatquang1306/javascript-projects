@@ -4,9 +4,9 @@ styleSheet.type = 'text/css';
 document.head.appendChild(styleSheet);
 
 let black, grid, allBallDir;
-let button = document.getElementById('start');
-let restart = false;
-button.addEventListener('click', start);
+let restartButton = document.getElementById('start');
+let isRestarted = false;
+restartButton.addEventListener('click', start);
 start();
 
 function fillBoard() {
@@ -49,7 +49,8 @@ function randomizeBallDirections(ballDir) {
 }
 
 function start() {
-    restart = true;
+    restartButton.disabled = true;
+    isRestarted = true;
     document.querySelectorAll('.black-cell').forEach(e => {
         e.remove();
     });
@@ -64,13 +65,14 @@ function start() {
         randomizeBallDirections(allBallDir[i]);
     }
     setTimeout(() => {
-        restart = false;
+        restartButton.disabled = false;
+        isRestarted = false;
         progress();
-    }, 1000);
+    }, 500);
 }
 
 function progress() {
-    if (black <= 0 || black >= size * size || restart) {
+    if (black <= 0 || black >= size * size || isRestarted) {
         return;
     }
     moveBall(allBallDir[0], 'black-cell', 'white-cell', 1);
@@ -95,9 +97,9 @@ function moveBall(ballDir, cur, other, number) {
     const ball = document.querySelector('.ball-' + number);
     let top = parseFloat(ball.style.top);
     let left = parseFloat(ball.style.left);
-    let nextTop = top + ballDir[0];
+    let nextTop = parseFloat((top + ballDir[0]).toFixed(2));
     let nextBottom = nextTop + 10;
-    let nextLeft = left + ballDir[1];
+    let nextLeft = parseFloat((left + ballDir[1]).toFixed(2));
     let nextRight = nextLeft + 10;
     let verCell = getCell(ballDir[0] > 0 ? nextBottom : nextTop, (nextLeft + nextRight) / 2);
     let horCell = getCell((nextTop + nextBottom) / 2, ballDir[1] > 0 ? nextRight : nextLeft);
@@ -157,22 +159,29 @@ function moveBall(ballDir, cur, other, number) {
         ball.style.left = nextLeft + 'px';
     } else {
         list.sort((a, b) => a[0] - b[0]);
-        if (list[list.length - 1][1] == undefined) {
-            list[list.length - 1][1] = nextTop;
-        } else if (list[list.length - 1][2] = undefined) {
-            list[list.length - 1][2] = nextLeft;
+        const first = list[0];
+        if (first[0] == 0 && first[1] == undefined) {
+            first[1] = top;
+        } else if (first[0] == 0 && first[2] == undefined) {
+            first[2] = left;
+        }
+        const last = list[list.length - 1];
+        if (last[1] == undefined) {
+            last[1] = nextTop;
+        } else if (last[2] = undefined) {
+            last[2] = nextLeft;
         }
         let keyframes = `@keyframes ${'pattern-' + number} {`
         list.forEach(arr => {
             keyframes += `${arr[0]}% {`;
             if (arr[1] != undefined) {
-                keyframes += ('top: ' + arr[1]);
+                keyframes += ('top: ' + arr[1] + 'px');
                 if (arr[2] != undefined) {
                     keyframes += ', ';
                 }
             }
             if (arr[2] != undefined) {
-                keyframes += ('left: ' + arr[2]);
+                keyframes += ('left: ' + arr[2] + 'px');
             }
             keyframes += '}; ';
         });
