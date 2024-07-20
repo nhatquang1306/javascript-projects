@@ -1,0 +1,61 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 30px;
+    height: 100vh;
+    background: linear-gradient(to bottom right, rgb(15, 15, 119), rgb(80, 57, 210));
+}
+
+#start {
+    margin: 0px auto;
+}
+
+.box {
+    border: 1px solid black;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.black-cell, .white-cell {
+    width: 10px;
+    height: 10px;
+}
+
+.ball-1, .ball-2, .ball-3, .ball-4 {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: top 10ms linear, left 10ms linear;
+}
+
+.ball-1 {
+    background-color: white; 
+    animation: pattern-1 5ms linear 1;
+}
+
+.ball-2 {
+    background-color: black;
+    animation: pattern-2 10ms linear 1;
+}
+
+.ball-3 {
+    background-color: white; 
+    animation: pattern-1 10ms linear 1;
+}
+
+.ball-4 {
+    background-color: black;
+    animation: pattern-2 10ms linear 1;
+}
+
+.white-cell {
+    background-color: white; 
+}
+
+.black-cell {
+    background-color: black;
+}
