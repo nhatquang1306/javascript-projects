@@ -79,7 +79,7 @@ function progress() {
     moveBall(allBallDir[3], 'white-cell', 'black-cell', 4);
     setTimeout(() => {
         progress();
-    }, 10);
+    }, 15);
 }
 
 function getCell(x, y) {

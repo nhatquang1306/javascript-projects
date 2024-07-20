@@ -29,27 +29,27 @@ body {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    transition: top 10ms linear, left 10ms linear;
+    transition: top 15ms linear, left 15ms linear;
 }
 
 .ball-1 {
     background-color: white; 
-    animation: pattern-1 5ms linear 1;
+    animation: pattern-1 15ms linear 1;
 }
 
 .ball-2 {
     background-color: black;
-    animation: pattern-2 10ms linear 1;
+    animation: pattern-2 15ms linear 1;
 }
 
 .ball-3 {
     background-color: white; 
-    animation: pattern-1 10ms linear 1;
+    animation: pattern-1 15ms linear 1;
 }
 
 .ball-4 {
     background-color: black;
-    animation: pattern-2 10ms linear 1;
+    animation: pattern-2 15ms linear 1;
 }
 
 .white-cell {
