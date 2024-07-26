@@ -4,11 +4,16 @@ body {
     gap: 30px;
     padding-top: 30px;
     height: 100vh;
-    background: linear-gradient(to bottom right, rgb(15, 15, 119), rgb(80, 57, 210));
+    background-color: rgb(133, 132, 132);
 }
 
-#start {
-    margin: 0px auto;
+.input-field {
+    display: flex;
+    gap: 20px;
+}
+
+label {
+    margin-right: 5px;
 }
 
 .box {
@@ -24,38 +29,17 @@ body {
     height: 10px;
 }
 
-.ball-1, .ball-2, .ball-3, .ball-4 {
+.black-ball, .white-ball {
     position: absolute;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    transition: top 15ms linear, left 15ms linear;
 }
 
-.ball-1 {
-    background-color: white; 
-    animation: pattern-1 15ms linear 1;
-}
-
-.ball-2 {
-    background-color: black;
-    animation: pattern-2 15ms linear 1;
-}
-
-.ball-3 {
-    background-color: white; 
-    animation: pattern-1 15ms linear 1;
-}
-
-.ball-4 {
-    background-color: black;
-    animation: pattern-2 15ms linear 1;
-}
-
-.white-cell {
+.white-ball, .white-cell {
     background-color: white; 
 }
 
-.black-cell {
+.black-ball, .black-cell {
     background-color: black;
 }
