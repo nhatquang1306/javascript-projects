@@ -1,4 +1,4 @@
-const time = 10;
+const time = 15;
 let styles = [];
 let size, grid, ballDirs, ballPositions, blackBalls, whiteBalls;
 let isRestarted = false;
@@ -56,8 +56,8 @@ function randomizeBallDirections() {
         }
     }
     const ballDist = Math.sqrt(ballDir[0] * ballDir[0] + ballDir[1] * ballDir[1]);
-    ballDir[0] = parseFloat((ballDir[0] * 3 / ballDist).toFixed(2));
-    ballDir[1] = parseFloat((ballDir[1] * 3 / ballDist).toFixed(2));
+    ballDir[0] = Math.round(ballDir[0] * 300 / ballDist) / 100;
+    ballDir[1] = Math.round(ballDir[1] * 300 / ballDist) / 100;
     ballDirs.push(ballDir);
 }
 
@@ -147,8 +147,8 @@ function moveBall(ballPosition, ballDir, cur, other, number) {
     const ball = document.getElementById('ball-' + number);
     const top = ballPosition[0];
     const left = ballPosition[1];
-    const nextTop = parseFloat((top + ballDir[0]).toFixed(2));
-    const nextLeft = parseFloat((left + ballDir[1]).toFixed(2));
+    const nextTop = Math.round((top + ballDir[0]) * 100) / 100;
+    const nextLeft = Math.round((left + ballDir[1]) * 100) / 100;
     const x = Math.floor((ballDir[0] > 0 ? top + 10 : top) / 10);
     const y = Math.floor((ballDir[1] > 0 ? left + 10 : left) / 10);
     const higherX = x + Math.sign(ballDir[0]);
@@ -196,14 +196,15 @@ function moveBall(ballPosition, ballDir, cur, other, number) {
 function collision(index, list, cell, cellLimit, firstPosition, nextPosition, direction, cur) {
     const nextX = cell[0];
     const nextY = cell[1];
-    const percentage = parseFloat(((cellLimit - firstPosition) * 100 / direction).toFixed(2));
+    const percentage = Math.round((cellLimit - firstPosition) * 10000 / direction) / 100;
     const location = list.find(c => c[0] == percentage);
     if (location) {
         location[index] = cellLimit;
     } else {
-        list.push([percentage, cellLimit, undefined]);
+        list.push([percentage, undefined, undefined]);
+        list[list.length - 1][index] = cellLimit;
     }
-    list[1][index] = parseFloat((cellLimit - (nextPosition - cellLimit)).toFixed(2));
+    list[1][index] = Math.round((cellLimit * 2 - nextPosition) * 100) / 100;
     if (getCell(nextX, nextY) != undefined) {
         document.getElementById(nextX + '-' + nextY).className = cur;
         grid[nextX][nextY] = cur;
@@ -213,8 +214,8 @@ function collision(index, list, cell, cellLimit, firstPosition, nextPosition, di
 function collisionDiaCell(list, diaLocation, cellTop, cellLeft, ballDir, top, left, nextTop, nextLeft, cur) {
     const nextX = diaLocation[0];
     const nextY = diaLocation[1];
-    const percentTop = parseFloat(((cellTop - top) * 100 / ballDir[0]).toFixed(2));
-    const percentLeft = parseFloat(((cellLeft - left) * 100 / ballDir[1]).toFixed(2));
+    const percentTop = Math.round((cellTop - top) * 10000 / ballDir[0]) / 100;
+    const percentLeft = Math.round((cellLeft - left) * 10000 / ballDir[1]) / 100;
     const location = [0, 0, 0];
     if (percentTop < percentLeft) {
         location[0] = percentTop;
@@ -230,8 +231,8 @@ function collisionDiaCell(list, diaLocation, cellTop, cellLeft, ballDir, top, le
     if (location[0] != 0 && location[0] != 100) {
         list.push(location);
     }
-    list[1][1] = parseFloat((cellTop - (nextTop - cellTop)).toFixed(2));
-    list[1][2] = parseFloat((cellLeft - (nextLeft - cellLeft)).toFixed(2));
+    list[1][1] = Math.round((cellTop * 2 - nextTop) * 100) / 100;
+    list[1][2] = Math.round((cellLeft * 2 - nextLeft) * 100) / 100;
     if (getCell(nextX, nextY) != undefined) {
         document.getElementById(nextX + '-' + nextY).className = cur;
         grid[nextX][nextY] = cur;
